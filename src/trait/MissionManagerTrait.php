@@ -4,19 +4,19 @@
 
     use Coco\queue\MissionManager;
 
-    trait MissionManagerTrait
+trait MissionManagerTrait
+{
+    protected MissionManager $manager;
+
+    public function getManager(): MissionManager
     {
-        protected MissionManager $manager;
-
-        public function getManager(): MissionManager
-        {
-            return $this->manager;
-        }
-
-        public function setManager(MissionManager $manager): static
-        {
-            $this->manager = $manager;
-
-            return $this;
-        }
+        return $this->manager;
     }
+
+    public function setManager(MissionManager $manager): static
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+}

@@ -7,8 +7,10 @@
 		"php"                  : ">=8.1",
 		"coco-project/closure" : "^1.0",
 		"coco-project/timer"   : "^1.0",
+		"guzzlehttp/guzzle"    : "^7.9",
 		"php-di/php-di"        : "^7.0",
 		"psr/log"              : "^3.0",
+		"spatie/url"           : "^2.4",
 		"symfony/console"      : "^6.4"
 	},
 	"autoload"             : {

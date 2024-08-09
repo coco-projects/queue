@@ -3,7 +3,7 @@
     use Coco\queue\MissionManager;
     use DI\Container;
 
-    require '../../vendor/autoload.php';
+    require '../../../vendor/autoload.php';
 
     $container = new Container();
 
@@ -22,3 +22,5 @@
 
         return $redis;
     });
+
+    $queue = $manager->initQueue('commandTest');

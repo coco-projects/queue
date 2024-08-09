@@ -2,14 +2,8 @@
 
     require "./common.php";
 
-    /*********************************/
-    //生产
 
-    $queue1 = $manager->initQueue('type');
-    $queue  = $manager->initQueue('order');
-    $queue->setExitOnfinish(!true);
-
-    foreach (range(1, 10000) as $k => $v)
+    foreach (range(1, 1000) as $k => $v)
     {
         $mission = new \Coco\queue\missions\CallableMission();
         $mission->setCallback(function($id, $obj) {
