@@ -4,7 +4,6 @@
 
     use Coco\queue\abstracts\MissionAbstract;
     use Coco\queue\abstracts\ResultProcessorAbstract;
-    use function Amp\call;
 
 class EchoResultProcessor extends ResultProcessorAbstract
 {
@@ -28,6 +27,6 @@ class EchoResultProcessor extends ResultProcessorAbstract
 
     public function onCatch(MissionAbstract $mission, \Exception $exception): void
     {
-        echo("onCatch【{$exception->getMessage()}】" . PHP_EOL);
+        echo("onCatch【{$mission->getId()} : {$exception->getMessage()}】" . PHP_EOL);
     }
 }
