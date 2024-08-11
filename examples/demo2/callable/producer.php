@@ -3,9 +3,11 @@
     require "./common.php";
 
 
-    foreach (range(1, 1000) as $k => $v)
+    foreach (range(1, 10) as $k => $v)
     {
         $mission = new \Coco\queue\missions\CallableMission();
+        $mission->value = '[123456]';
+
         $mission->setCallback(function($id, $obj) {
 
             if (rand(1, 100) % 3)

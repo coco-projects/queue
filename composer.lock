@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1668d64b03a9ba06c69d316f72206083",
+    "content-hash": "45f655bb9324c87b79f99ccc98adda31",
     "packages": [
         {
             "name": "coco-project/closure",
@@ -44,6 +44,46 @@
                 "source": "https://github.com/coco-projects/closure/tree/v1.0.1"
             },
             "time": "2024-08-01T10:03:16+00:00"
+        },
+        {
+            "name": "coco-project/magic-access",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coco-projects/magic-access.git",
+                "reference": "afaa17d9ecefc7f8acc648b94716db23da9cf95a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coco-projects/magic-access/zipball/afaa17d9ecefc7f8acc648b94716db23da9cf95a",
+                "reference": "afaa17d9ecefc7f8acc648b94716db23da9cf95a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "^3.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Coco\\examples\\": "examples/",
+                    "Coco\\magicAccess\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "\\ArrayAccess, \\Countable, \\IteratorAggregate and __set,__get implementations",
+            "support": {
+                "issues": "https://github.com/coco-projects/magic-access/issues",
+                "source": "https://github.com/coco-projects/magic-access/tree/v1.0.2"
+            },
+            "time": "2024-01-06T07:15:31+00:00"
         },
         {
             "name": "coco-project/timer",

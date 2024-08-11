@@ -8,6 +8,8 @@
 
 abstract class MissionAbstract
 {
+    use \Coco\magicAccess\MagicMethod;
+
     protected ?Queue  $queue        = null;
     protected ?string $id           = null;
     protected int     $times        = 0;
