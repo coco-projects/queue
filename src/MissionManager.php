@@ -11,9 +11,10 @@
 
 class MissionManager
 {
+    use \Coco\logger\Logger;
+
     protected Container $container;
     protected \Redis    $redisClient;
-    protected array     $logger = [];
     protected array     $queues;
     protected string    $prefix = 'CocoQueue';
 
@@ -193,74 +194,6 @@ class MissionManager
         $this->redisClient->close();
     }
 
-    /**
-     * -----------------------------------------------------------------
-     */
-    public function addLogger(LoggerInterface $logger): static
-    {
-        $this->logger[] = $logger;
-
-        return $this;
-    }
-
-    public function logError(string $msg): static
-    {
-        $this->writeLog('error', $msg);
-
-        return $this;
-    }
-
-    public function logAlert(string $msg): static
-    {
-        $this->writeLog('alert', $msg);
-
-        return $this;
-    }
-
-    public function logInfo(string $msg): static
-    {
-        $this->writeLog('info', $msg);
-
-        return $this;
-    }
-
-    public function logDebug(string $msg): static
-    {
-        $this->writeLog('debug', $msg);
-
-        return $this;
-    }
-
-    public function logEmergency(string $msg): static
-    {
-        $this->writeLog('emergency', $msg);
-
-        return $this;
-    }
-
-    public function logNotice(string $msg): static
-    {
-        $this->writeLog('notice', $msg);
-
-        return $this;
-    }
-
-    public function logWarning(string $msg): static
-    {
-        $this->writeLog('warning', $msg);
-
-        return $this;
-    }
-
-    private function writeLog(string $level, string $msg): void
-    {
-        /**
-         * @var LoggerInterface $logger
-         */
-        foreach ($this->logger as $k => $logger) {
-            $logger->{$level}("[" . date('Y-m-d H:i:s') . "]" . $msg);
-        }
-    }
 
     /**
      * -----------------------------------------------------------------

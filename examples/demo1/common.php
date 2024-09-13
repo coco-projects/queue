@@ -13,8 +13,10 @@
 
     $manager = new MissionManager($container);
 
-    $manager->addLogger(new \Psr\Log\NullLogger());
-    $manager->addLogger(new \Coco\queue\logger\EchoLogger());
+    // 生产中如果要输出日志，必须手动安装 Monolog
+    $logger = new \Monolog\Logger('my_logger');
+    $manager->setLogger($logger);
+    $manager->addStdoutLogger();
 
     $manager->initRedisClient(function(MissionManager $missionManager) {
         $redis = $missionManager->getContainer()->get('redisClient');
