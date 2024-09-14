@@ -13,8 +13,9 @@
 
     $manager = new MissionManager($container);
 
-    $manager->addLogger(new \Psr\Log\NullLogger());
-    $manager->addLogger(new \Coco\queue\logger\EchoLogger());
+    $logger = new \Monolog\Logger('my_logger');
+    $manager->setLogger($logger);
+    $manager->addStdoutLogger();
 
     $manager->initRedisClient(function(MissionManager $missionManager) {
         $redis = $missionManager->getContainer()->get('redisClient');
