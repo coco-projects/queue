@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "coco-project/closure",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coco-projects/closure.git",
-                "reference": "3081819cde97b1c611e3c36894f29549f05ef476"
+                "reference": "9aca9d872988ce5e3b2c49c899db85bda078773c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coco-projects/closure/zipball/3081819cde97b1c611e3c36894f29549f05ef476",
-                "reference": "3081819cde97b1c611e3c36894f29549f05ef476",
+                "url": "https://api.github.com/repos/coco-projects/closure/zipball/9aca9d872988ce5e3b2c49c899db85bda078773c",
+                "reference": "9aca9d872988ce5e3b2c49c899db85bda078773c",
                 "shasum": ""
             },
             "require": {
@@ -41,22 +41,22 @@
             ],
             "support": {
                 "issues": "https://github.com/coco-projects/closure/issues",
-                "source": "https://github.com/coco-projects/closure/tree/v1.0.2"
+                "source": "https://github.com/coco-projects/closure/tree/v1.0.3"
             },
-            "time": "2024-09-13T12:53:58+00:00"
+            "time": "2024-09-19T08:06:36+00:00"
         },
         {
             "name": "coco-project/logger",
-            "version": "v1.0.0",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coco-projects/logger.git",
-                "reference": "903dbe11c7fb468675f1ed39bd0355466355a2c3"
+                "reference": "5b6ae5eafb148bdd36f2682eb9de3bfa5acf0583"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coco-projects/logger/zipball/903dbe11c7fb468675f1ed39bd0355466355a2c3",
-                "reference": "903dbe11c7fb468675f1ed39bd0355466355a2c3",
+                "url": "https://api.github.com/repos/coco-projects/logger/zipball/5b6ae5eafb148bdd36f2682eb9de3bfa5acf0583",
+                "reference": "5b6ae5eafb148bdd36f2682eb9de3bfa5acf0583",
                 "shasum": ""
             },
             "require": {
@@ -81,22 +81,22 @@
             ],
             "support": {
                 "issues": "https://github.com/coco-projects/logger/issues",
-                "source": "https://github.com/coco-projects/logger/tree/v1.0.0"
+                "source": "https://github.com/coco-projects/logger/tree/v1.0.5"
             },
-            "time": "2024-09-13T02:50:45+00:00"
+            "time": "2024-09-19T09:07:01+00:00"
         },
         {
             "name": "coco-project/magic-access",
-            "version": "v1.0.2",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coco-projects/magic-access.git",
-                "reference": "afaa17d9ecefc7f8acc648b94716db23da9cf95a"
+                "reference": "9a79f324ae1f318d77be8089af2b0b6587f27165"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coco-projects/magic-access/zipball/afaa17d9ecefc7f8acc648b94716db23da9cf95a",
-                "reference": "afaa17d9ecefc7f8acc648b94716db23da9cf95a",
+                "url": "https://api.github.com/repos/coco-projects/magic-access/zipball/9a79f324ae1f318d77be8089af2b0b6587f27165",
+                "reference": "9a79f324ae1f318d77be8089af2b0b6587f27165",
                 "shasum": ""
             },
             "require": {
@@ -121,22 +121,22 @@
             "description": "\\ArrayAccess, \\Countable, \\IteratorAggregate and __set,__get implementations",
             "support": {
                 "issues": "https://github.com/coco-projects/magic-access/issues",
-                "source": "https://github.com/coco-projects/magic-access/tree/v1.0.2"
+                "source": "https://github.com/coco-projects/magic-access/tree/v1.0.5"
             },
-            "time": "2024-01-06T07:15:31+00:00"
+            "time": "2024-09-19T07:32:09+00:00"
         },
         {
             "name": "coco-project/timer",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coco-projects/timer.git",
-                "reference": "051f6fa6552e326d18bbcf0981b668ea9d5fc123"
+                "reference": "23ed482c3760bdabdd95a8ca9d287de51fa7dc4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coco-projects/timer/zipball/051f6fa6552e326d18bbcf0981b668ea9d5fc123",
-                "reference": "051f6fa6552e326d18bbcf0981b668ea9d5fc123",
+                "url": "https://api.github.com/repos/coco-projects/timer/zipball/23ed482c3760bdabdd95a8ca9d287de51fa7dc4e",
+                "reference": "23ed482c3760bdabdd95a8ca9d287de51fa7dc4e",
                 "shasum": ""
             },
             "require": {
@@ -160,9 +160,9 @@
             ],
             "support": {
                 "issues": "https://github.com/coco-projects/timer/issues",
-                "source": "https://github.com/coco-projects/timer/tree/v1.0.4"
+                "source": "https://github.com/coco-projects/timer/tree/v1.0.5"
             },
-            "time": "2024-07-30T15:58:34+00:00"
+            "time": "2024-09-19T09:22:00+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1981,16 +1981,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.1.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
+                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/683130c2ff8c2739f4822ff7ac5c873ec529abd1",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
+                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
                 "shasum": ""
             },
             "require": {
@@ -2033,9 +2033,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.1.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.2.0"
             },
-            "time": "2024-07-01T20:03:41+00:00"
+            "time": "2024-09-15T16:40:33+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2157,16 +2157,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.3",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0fcbf194ab63d8159bb70d9aa3e1350051632009"
+                "reference": "ffa517cb918591b93acc9b95c0bebdcd0e4538bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0fcbf194ab63d8159bb70d9aa3e1350051632009",
-                "reference": "0fcbf194ab63d8159bb70d9aa3e1350051632009",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ffa517cb918591b93acc9b95c0bebdcd0e4538bd",
+                "reference": "ffa517cb918591b93acc9b95c0bebdcd0e4538bd",
                 "shasum": ""
             },
             "require": {
@@ -2211,7 +2211,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-09T08:10:35+00:00"
+            "time": "2024-09-19T07:58:01+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3600,16 +3600,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.2",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/86e5f5dd9a840c46810ebe5ff1885581c42a3017",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/62d32998e820bddc40f99f8251958aed187a5c9c",
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c",
                 "shasum": ""
             },
             "require": {
@@ -3676,7 +3676,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-21T23:26:44+00:00"
+            "time": "2024-09-18T10:38:58+00:00"
         },
         {
             "name": "theseer/tokenizer",
