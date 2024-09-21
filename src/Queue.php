@@ -348,6 +348,11 @@ class Queue
         return $this->name . ':missions:terminated';
     }
 
+    public function queueTempName(): string
+    {
+        return $this->name . ':missions:temp';
+    }
+
     /**
      * -----------------------------------------------------------------
      */
@@ -401,8 +406,12 @@ class Queue
 
     public function getStatistics(): array
     {
+        $rate           = $this->execMissionPerSec();
+        $remainMissions = $this->countRunning();
+
         return [
-            "rate" => $this->execMissionPerSec(),
+            "rate"   => $rate,
+            "remain" => max(bcdiv($remainMissions, $rate, 3), -1),
 
             "successTimes" => $this->getSuccessTimes(),
             "errorTimes"   => $this->getErrorTimes(),
@@ -518,14 +527,21 @@ class Queue
                 break 1;
             }
 
-            while ($mission = $this->popMissionFormRunning()) {
+            while (true) {
                 //手动关闭队列
                 if (!$this->isEnable()) {
                     $this->getManager()->logInfo("[$queueName]:队列已被关闭..." . PHP_EOL);
 
                     break 2;
                 }
+                    
+                $mission = $this->popMissionFormRunning();
 
+                if (!$mission) {
+                    usleep(1000 * 2);
+                    break 1;
+                }
+                    
                 $totalTime = $this->timer->totalTime();
 
                 $msg = [

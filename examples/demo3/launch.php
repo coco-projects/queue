@@ -2,7 +2,7 @@
 
     require "./common.php";
 
-    $launcher->setTimes(3);
+    $launcher->setTimes(1);
 
 //    echo $launcher->getLanuchCommand();
     $launcher->launch();

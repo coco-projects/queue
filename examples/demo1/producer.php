@@ -9,7 +9,7 @@
     $queue  = $manager->initQueue('order');
     $queue->setExitOnfinish(!true);
 
-    foreach (range(1, 100) as $k => $v)
+    foreach (range(1, 10000) as $k => $v)
     {
         $mission = new \Coco\queue\missions\CallableMission();
         $mission->setCallback(function($id, $obj) {

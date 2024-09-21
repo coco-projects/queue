@@ -112,22 +112,23 @@ class MissionManager
         //            $table->setStyle('symfony-style-guide');
 
         $table->setHeaders([
-            'name',
-            'isEnable',
-            'isPause',
-            'isRetryOnError',
-            'isContinuousRetry',
-            'rate',
-            'maxTimes',
-            'delayMs',
-            'isLocked',
-            'totalMission',
-            'countRunning',
-            'countTimesReached',
-            'countTerminated',
-            'countError',
-            'successTimes',
-            'errorTimes',
+            '队列名称',
+            '启用状态',
+            '暂停状态',
+            '一共写入',
+            '剩余任务',
+            '消费速率',
+            '剩余时间',
+            '超次任务',
+            '出错任务',
+            '终止任务',
+            '锁定状态',
+            '出错重试',
+            '连续重试',
+            '最大重试',
+            '延迟微秒',
+            '成功次数',
+            '失败次数',
         ]);
 
         while (true) {
@@ -136,23 +137,25 @@ class MissionManager
 
             foreach ($info as $k => $v) {
                 $rows[] = [
-                    $v['name'],
-                    $v['isEnable'] ? '<info>Yes</info>' : '<error>No</error>',
-                    $v['isPause'] ? '<info>Yes</info>' : '<error>No</error>',
-                    $v['isRetryOnError'] ? '<info>Yes</info>' : '<error>No</error>',
-                    $v['isContinuousRetry'] ? '<info>Yes</info>' : '<error>No</error>',
-                    $v['rate'] . '/S',
-                    $v['maxTimes'],
-                    $v['delayMs'],
-                    $v['isLocked'] ? '<info>Yes</info>' : '<error>No</error>',
+                    "<info>" . $v['name'] . "</info>",
+                    $v['isEnable'] ? '<info>Y</info>' : '<error>N</error>',
+                    $v['isPause'] ? '<info>Y</info>' : '<error>N</error>',
                     $v['totalMission'],
                     $v['countRunning'],
-                    $v['countTimesReached'],
-                    $v['countTerminated'],
-                    $v['countError'],
-                    $v['successTimes'],
-                    $v['errorTimes'],
+                    $v['rate'] . '/S',
+                    $v['remain'] . 'S',
+                    $v['countTimesReached'] > 0 ? "<error>" . $v['countTimesReached'] . "</error>" : "<info>" . $v['countTimesReached'] . "</info>",
+                    $v['countError'] > 0 ? "<error>" . $v['countError'] . "</error>" : "<info>" . $v['countError'] . "</info>",
+                    $v['countTerminated'] > 0 ? "<error>" . $v['countTerminated'] . "</error>" : "<info>" . $v['countTerminated'] . "</info>",
+                    $v['isLocked'] ? '<info>Y</info>' : '<error>N</error>',
+                    $v['isRetryOnError'] ? '<info>Y</info>' : '<error>N</error>',
+                    $v['isContinuousRetry'] ? '<info>Y</info>' : '<error>N</error>',
+                    $v['maxTimes'],
+                    $v['delayMs'] . '<info>ms</info>',
+                    $v['successTimes'] > 0 ? "<error>" . $v['successTimes'] . "</error>" : "<info>" . $v['successTimes'] . "</info>",
+                    $v['errorTimes'] > 0 ? "<error>" . $v['errorTimes'] . "</error>" : "<info>" . $v['errorTimes'] . "</info>",
                 ];
+
                 ($k !== count($info) - 1) && $rows[] = new TableSeparator();
             }
 
