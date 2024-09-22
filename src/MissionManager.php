@@ -143,7 +143,7 @@ class MissionManager
                     $v['totalMission'],
                     $v['countRunning'],
                     $v['rate'] . '/S',
-                    $v['remain'] . 'S',
+                    static::formatTime($v['remain']) ,
                     $v['countTimesReached'] > 0 ? "<error>" . $v['countTimesReached'] . "</error>" : "<info>" . $v['countTimesReached'] . "</info>",
                     $v['countError'] > 0 ? "<error>" . $v['countError'] . "</error>" : "<info>" . $v['countError'] . "</info>",
                     $v['countTerminated'] > 0 ? "<error>" . $v['countTerminated'] . "</error>" : "<info>" . $v['countTerminated'] . "</info>",
@@ -204,5 +204,32 @@ class MissionManager
     public function makeQueueName(string $queueName): string
     {
         return $this->prefix . ':queues:' . $queueName;
+    }
+
+    public static function formatTime(int $seconds): string
+    {
+        $days             = floor($seconds / 86400);
+        $hours            = floor(($seconds % 86400) / 3600);
+        $minutes          = floor(($seconds % 3600) / 60);
+        $remainingSeconds = $seconds % 60;
+
+        $result = [];
+        if ($days > 0) {
+            $result[] = "{$days}天";
+        }
+
+        if ($hours > 0 || !empty($result)) {
+            $result[] = "{$hours}时";
+        }
+
+        // 有天数时也显示小时
+        if ($minutes > 0 || !empty($result)) {
+            $result[] = "{$minutes}分";
+        }
+
+        // 有小时或天数时显示分钟
+        $result[] = "{$remainingSeconds}秒";
+
+        return implode('', $result);
     }
 }
