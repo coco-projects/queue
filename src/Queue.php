@@ -522,7 +522,7 @@ class Queue
         while (true) {
             //手动关闭队列
             if (!$this->isEnable()) {
-                $this->getManager()->logInfo("[$queueName]:队列已被关闭..." . PHP_EOL);
+                $this->getManager()->logInfo("[$queueName]:队列已被关闭...");
 
                 break 1;
             }
@@ -530,7 +530,7 @@ class Queue
             while (true) {
                 //手动关闭队列
                 if (!$this->isEnable()) {
-                    $this->getManager()->logInfo("[$queueName]:队列已被关闭..." . PHP_EOL);
+                    $this->getManager()->logInfo("[$queueName]:队列已被关闭...");
 
                     break 2;
                 }
@@ -549,7 +549,6 @@ class Queue
                     ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
                     ', 历时:' . $totalTime,
                     ' S',
-                    PHP_EOL,
                 ];
                 $this->getManager()->logInfo(implode('', $msg));
 
@@ -568,14 +567,12 @@ class Queue
                 '[-]队列名称:' . $this->getName(),
                 ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
                 ', 历时:' . $this->timer->totalTime(),
-                PHP_EOL,
             ];
             $this->getManager()->logInfo(implode('', $msg));
         }
 
         $msg = [
             "队列执行结束:[{$this->getName()}]，历时:" . $this->timer->totalTime(),
-            PHP_EOL,
         ];
         $this->getManager()->logInfo(implode('', $msg));
     }
@@ -611,7 +608,7 @@ class Queue
                 if ($queue->isRetryOnError()) {
                     //如果达到重试次数，写入次数满队列
                     if ($this->isMissionTimesReached($mission)) {
-                        $msg = "重试次数达到上限，写入次满队列:[{$mission->getId()}]:{$mission->getTimes()}" . PHP_EOL;
+                        $msg = "重试次数达到上限，写入次满队列:[{$mission->getId()}]:{$mission->getTimes()}" ;
                         $mission->setError($msg);
                         $queue->getManager()->logError($msg);
 
@@ -621,12 +618,12 @@ class Queue
                     else {
                         //连续重试
                         if ($this->isContinuousRetry()) {
-                            $msg = "写入队头，立即重试:[{$mission->getId()}]:第{$mission->getTimes()}次" . PHP_EOL;
+                            $msg = "写入队头，立即重试:[{$mission->getId()}]:第{$mission->getTimes()}次" ;
                             $mission->setError($msg);
                             $queue->getManager()->logError($msg);
                             $queue->unshiftMissionToRunning($mission);
                         } else {
-                            $msg = "写入队尾:[{$mission->getId()}]:第{$mission->getTimes()}次" . PHP_EOL;
+                            $msg = "写入队尾:[{$mission->getId()}]:第{$mission->getTimes()}次" ;
                             $mission->setError($msg);
                             $queue->getManager()->logError($msg);
                             $queue->pushMissionToRunning($mission);
@@ -657,7 +654,7 @@ class Queue
         }
 
         if ($mission->isTerminated()) {
-            $msg = "任务已被终止:[{$mission->getId()}]" . PHP_EOL;
+            $msg = "任务已被终止:[{$mission->getId()}]" ;
 
             $mission->setError($msg);
             $this->getManager()->logError($msg);
@@ -670,14 +667,14 @@ class Queue
         try {
             $mission->incTimes();
 
-            $msg = "执行任务:[{$mission->getId()}] , 第{$mission->getTimes()}次" . PHP_EOL;
+            $msg = "执行任务:[{$mission->getId()}] , 第{$mission->getTimes()}次" ;
             $this->getManager()->logInfo($msg);
 
             $result = $this->missionProcessor->exec($mission);
             $mission->setResult($result);
             $mission->setIsSuccessful(true);
 
-            $msg = "执行成功:[{$mission->getId()}] " . PHP_EOL;
+            $msg = "执行成功:[{$mission->getId()}] " ;
             $this->getManager()->logInfo($msg);
 
             $onSuccess($mission, $this);
@@ -691,7 +688,7 @@ class Queue
         } catch (\Exception $exception) {
             $onError($mission, $this);
 
-            $msg = "执行出错:[{$mission->getId()}] " . $exception->getMessage() . PHP_EOL;
+            $msg = "执行出错:[{$mission->getId()}] " . $exception->getMessage() ;
             $this->getManager()->logError($msg);
 
             /**
@@ -787,10 +784,10 @@ class Queue
         $res = $this->pushMission($mission, $queueName);
 
         if ($res) {
-            $msg = "任务写入成功:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务写入成功:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logInfo($msg);
         } else {
-            $msg = "任务写入失败:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务写入失败:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logError($msg);
         }
     }
@@ -803,10 +800,10 @@ class Queue
         $res = $this->unshiftMission($mission, $queueName);
 
         if ($res) {
-            $msg = "任务抢占成功:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务抢占成功:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logInfo($msg);
         } else {
-            $msg = "任务抢占失败:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务抢占失败:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logError($msg);
         }
     }
@@ -818,7 +815,7 @@ class Queue
 
         //暂停了
         if ($this->isPause()) {
-            $this->getManager()->logInfo("[$queueName]:暂停中..." . PHP_EOL);
+            $this->getManager()->logInfo("[$queueName]:暂停中...");
 
             while (1) {
                 if (!$this->isPause()) {
@@ -829,7 +826,7 @@ class Queue
                 usleep(200 * 1000);
             }
 
-            $this->getManager()->logInfo("[$queueName]:恢复执行" . PHP_EOL);
+            $this->getManager()->logInfo("[$queueName]:恢复执行");
         }
 
         $missionObj = $this->popMission($queueName);
@@ -840,7 +837,7 @@ class Queue
 
         //如果设置了延时
         if ($this->getDelayMs()) {
-            $this->getManager()->logInfo("[$queueName]:延时中:" . $this->getDelayMs() . ' ms' . PHP_EOL);
+            $this->getManager()->logInfo("[$queueName]:延时中:" . $this->getDelayMs() . ' ms');
 
             //延时多久再取队
             while (1) {
@@ -868,10 +865,10 @@ class Queue
         $res = $this->pushMission($mission, $queueName);
 
         if ($res) {
-            $msg = "任务写入成功:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务写入成功:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logInfo($msg);
         } else {
-            $msg = "任务写入失败:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务写入失败:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logError($msg);
         }
     }
@@ -883,7 +880,7 @@ class Queue
 
         //手动关闭队列
         if (!$this->isEnable()) {
-            $this->getManager()->logInfo("[$queueName]:队列已被关闭..." . PHP_EOL);
+            $this->getManager()->logInfo("[$queueName]:队列已被关闭...");
 
             return null;
         }
@@ -902,7 +899,7 @@ class Queue
 
         //手动关闭队列
         if (!$this->isEnable()) {
-            $this->getManager()->logInfo("[$queueName]:队列已被关闭..." . PHP_EOL);
+            $this->getManager()->logInfo("[$queueName]:队列已被关闭...");
 
             return null;
         }
@@ -920,10 +917,10 @@ class Queue
         $res = $this->pushMission($mission, $queueName);
 
         if ($res) {
-            $msg = "任务写入成功:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务写入成功:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logInfo($msg);
         } else {
-            $msg = "任务写入失败:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "任务写入失败:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logError($msg);
         }
     }
@@ -938,10 +935,10 @@ class Queue
         $res = $this->pushMission($mission, $queueName);
 
         if ($res) {
-            $msg = "错误任务写入成功:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "错误任务写入成功:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logInfo($msg);
         } else {
-            $msg = "错误任务写入失败:[$queueName]:" . $mission->getId() . PHP_EOL;
+            $msg = "错误任务写入失败:[$queueName]:" . $mission->getId() ;
             $this->getManager()->logError($msg);
         }
     }
@@ -953,7 +950,7 @@ class Queue
 
         //手动关闭队列
         if (!$this->isEnable()) {
-            $this->getManager()->logInfo("[$queueName]:队列已被关闭..." . PHP_EOL);
+            $this->getManager()->logInfo("[$queueName]:队列已被关闭...");
 
             return null;
         }

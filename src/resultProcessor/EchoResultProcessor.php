@@ -22,11 +22,13 @@ class EchoResultProcessor extends ResultProcessorAbstract
             $result = call_user_func_array($this->callback, [$result]);
         }
 
-        echo("onSuccess【{$result}】" . PHP_EOL);
+        echo "onSuccess【{$result}】";
+        echo PHP_EOL;
     }
 
     public function onCatch(MissionAbstract $mission, \Exception $exception): void
     {
-        echo("onCatch【{$mission->getId()} : {$exception->getMessage()}】" . PHP_EOL);
+        echo "onCatch【{$mission->getId()} : {$exception->getMessage()}】";
+        echo PHP_EOL;
     }
 }
