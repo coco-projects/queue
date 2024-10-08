@@ -14,9 +14,7 @@
     $manager = new MissionManager($container);
 
     $manager->setStandardLogger('queue');
-    $manager->addStdoutHandler(callback: function(\Monolog\Handler\StreamHandler $handler, MissionManager $_this) {
-        $handler->setFormatter(new \Coco\logger\MyFormatter());
-    });
+    $manager->addStdoutHandler(callback: $manager::getStandardFormatter());
 
     $manager->initRedisClient(function(MissionManager $missionManager) {
         $redis = $missionManager->getContainer()->get('redisClient');

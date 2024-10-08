@@ -4,5 +4,7 @@
 
     $script = '../../examples/demo1/consumer.php';
 
-    $launcher = new \Coco\commandRunner\Launcher($script);
+    $launcher = new \Coco\commandRunner\PhpLauncher($script);
 
+    $launcher->setStandardLogger('test');
+    $launcher->addStdoutHandler(callback: $launcher::getStandardFormatter());

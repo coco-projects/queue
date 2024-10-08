@@ -2,16 +2,16 @@
 
     namespace Coco\queue;
 
+    use Coco\logger\Logger;
     use Symfony\Component\Console\Helper\Table;
     use Coco\queue\exceptions\QueueNotFoundException;
     use DI\Container;
-    use Psr\Log\LoggerInterface;
     use Symfony\Component\Console\Helper\TableSeparator;
     use Symfony\Component\Console\Output\ConsoleOutput;
 
 class MissionManager
 {
-    use \Coco\logger\Logger;
+    use Logger;
 
     protected Container $container;
     protected \Redis    $redisClient;
