@@ -47,16 +47,16 @@
         },
         {
             "name": "coco-project/command-runner",
-            "version": "v1.0.2",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coco-projects/command-runner.git",
-                "reference": "9b96ce2665b6e8ff71eaa7a8b3f04f11d64154ef"
+                "reference": "17b84607c781d8749c9f0899cd770e06fc0b4885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coco-projects/command-runner/zipball/9b96ce2665b6e8ff71eaa7a8b3f04f11d64154ef",
-                "reference": "9b96ce2665b6e8ff71eaa7a8b3f04f11d64154ef",
+                "url": "https://api.github.com/repos/coco-projects/command-runner/zipball/17b84607c781d8749c9f0899cd770e06fc0b4885",
+                "reference": "17b84607c781d8749c9f0899cd770e06fc0b4885",
                 "shasum": ""
             },
             "require": {
@@ -81,22 +81,22 @@
             ],
             "support": {
                 "issues": "https://github.com/coco-projects/command-runner/issues",
-                "source": "https://github.com/coco-projects/command-runner/tree/v1.0.2"
+                "source": "https://github.com/coco-projects/command-runner/tree/v1.0.4"
             },
-            "time": "2024-10-08T11:53:52+00:00"
+            "time": "2024-10-10T14:50:00+00:00"
         },
         {
             "name": "coco-project/logger",
-            "version": "v1.0.7",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coco-projects/logger.git",
-                "reference": "af86e322cb478792a07320b469d68ce6e667e5a9"
+                "reference": "260a6c71765cbb6aeb2f117a2a504625f5163aca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coco-projects/logger/zipball/af86e322cb478792a07320b469d68ce6e667e5a9",
-                "reference": "af86e322cb478792a07320b469d68ce6e667e5a9",
+                "url": "https://api.github.com/repos/coco-projects/logger/zipball/260a6c71765cbb6aeb2f117a2a504625f5163aca",
+                "reference": "260a6c71765cbb6aeb2f117a2a504625f5163aca",
                 "shasum": ""
             },
             "require": {
@@ -122,9 +122,9 @@
             ],
             "support": {
                 "issues": "https://github.com/coco-projects/logger/issues",
-                "source": "https://github.com/coco-projects/logger/tree/v1.0.7"
+                "source": "https://github.com/coco-projects/logger/tree/v1.0.8"
             },
-            "time": "2024-10-08T11:45:51+00:00"
+            "time": "2024-10-08T12:44:45+00:00"
         },
         {
             "name": "coco-project/magic-access",
@@ -2022,16 +2022,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.3.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
                 "shasum": ""
             },
             "require": {
@@ -2074,9 +2074,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
-            "time": "2024-09-29T13:56:26+00:00"
+            "time": "2024-10-08T18:51:32+00:00"
         },
         {
             "name": "phar-io/manifest",
