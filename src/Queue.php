@@ -21,6 +21,7 @@ class Queue
     protected array              $resultProcessor   = [];
     protected ?ProcessorAbstract $missionProcessor  = null;
     protected ?Timer             $timer             = null;
+    protected $onFinish          = null;
 
     public function __construct(string $name, MissionManager $manager)
     {
@@ -99,6 +100,13 @@ class Queue
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setOnFinish(callable $onFinish): static
+    {
+        $this->onFinish = $onFinish;
+
+        return $this;
     }
 
     /**
@@ -560,6 +568,17 @@ class Queue
             }
 
             if ($this->exitOnfinish) {
+                $msg = [
+                    '[-]----队列执行结束----:' . $this->getName(),
+                    ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
+                    ', 历时:' . $this->timer->totalTime(),
+                ];
+                $this->getManager()->logInfo(implode('', $msg));
+
+                if (is_callable($this->onFinish)) {
+                    call_user_func_array($this->onFinish, [$this]);
+                }
+
                 break;
             }
 
@@ -588,11 +607,11 @@ class Queue
             $this->incSuccessTimes();
         };
 
-            $onError = function (MissionAbstract $mission, Queue $queue) {
-                $this->incErrorTimes();
-            };
+        $onError = function (MissionAbstract $mission, Queue $queue) {
+            $this->incErrorTimes();
+        };
 
-            $this->execMission($mission, $onSuccess, $onError);
+        $this->execMission($mission, $onSuccess, $onError);
     }
 
     protected function execMissionWithQueue(MissionAbstract $mission): void
@@ -601,42 +620,42 @@ class Queue
             $this->incSuccessTimes();
         };
 
-            $onError = function (MissionAbstract $mission, Queue $queue) {
-                $this->incErrorTimes();
+        $onError = function (MissionAbstract $mission, Queue $queue) {
+            $this->incErrorTimes();
 
-                //如果开启错误重试
-                if ($queue->isRetryOnError()) {
-                    //如果达到重试次数，写入次数满队列
-                    if ($this->isMissionTimesReached($mission)) {
-                        $msg = "重试次数达到上限，写入次满队列:[{$mission->getId()}]:{$mission->getTimes()}" ;
+            //如果开启错误重试
+            if ($queue->isRetryOnError()) {
+                //如果达到重试次数，写入次数满队列
+                if ($this->isMissionTimesReached($mission)) {
+                    $msg = "重试次数达到上限，写入次满队列:[{$mission->getId()}]:{$mission->getTimes()}" ;
+                    $mission->setError($msg);
+                    $queue->getManager()->logError($msg);
+
+                    $queue->pushMissionToTimesReached($mission);
+                }
+                //如果没达到重试次数，写到执行队列，继续执行
+                else {
+                    //连续重试
+                    if ($this->isContinuousRetry()) {
+                        $msg = "写入队头，立即重试:[{$mission->getId()}]:第{$mission->getTimes()}次" ;
                         $mission->setError($msg);
                         $queue->getManager()->logError($msg);
-
-                        $queue->pushMissionToTimesReached($mission);
-                    }
-                    //如果没达到重试次数，写到执行队列，继续执行
-                    else {
-                        //连续重试
-                        if ($this->isContinuousRetry()) {
-                            $msg = "写入队头，立即重试:[{$mission->getId()}]:第{$mission->getTimes()}次" ;
-                            $mission->setError($msg);
-                            $queue->getManager()->logError($msg);
-                            $queue->unshiftMissionToRunning($mission);
-                        } else {
-                            $msg = "写入队尾:[{$mission->getId()}]:第{$mission->getTimes()}次" ;
-                            $mission->setError($msg);
-                            $queue->getManager()->logError($msg);
-                            $queue->pushMissionToRunning($mission);
-                        }
+                        $queue->unshiftMissionToRunning($mission);
+                    } else {
+                        $msg = "写入队尾:[{$mission->getId()}]:第{$mission->getTimes()}次" ;
+                        $mission->setError($msg);
+                        $queue->getManager()->logError($msg);
+                        $queue->pushMissionToRunning($mission);
                     }
                 }
-                //如果关闭错误重试，直接写入error队列
-                else {
-                    $queue->pushMissionToError($mission);
-                }
-            };
+            }
+            //如果关闭错误重试，直接写入error队列
+            else {
+                $queue->pushMissionToError($mission);
+            }
+        };
 
-            $this->execMission($mission, $onSuccess, $onError);
+        $this->execMission($mission, $onSuccess, $onError);
     }
 
     protected function execMission(MissionAbstract $mission, callable $onSuccess, callable $onError): void
