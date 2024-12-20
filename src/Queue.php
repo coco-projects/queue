@@ -542,14 +542,14 @@ class Queue
 
                     break 2;
                 }
-                    
+
                 $mission = $this->popMissionFormRunning();
 
                 if (!$mission) {
                     usleep(1000 * 2);
                     break 1;
                 }
-                    
+
                 $totalTime = $this->timer->totalTime();
 
                 $msg = [
@@ -568,13 +568,6 @@ class Queue
             }
 
             if ($this->exitOnfinish) {
-                $msg = [
-                    '[-]----队列执行结束----:' . $this->getName(),
-                    ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
-                    ', 历时:' . $this->timer->totalTime(),
-                ];
-                $this->getManager()->logInfo(implode('', $msg));
-
                 if (is_callable($this->onFinish)) {
                     call_user_func_array($this->onFinish, [$this]);
                 }
@@ -591,7 +584,9 @@ class Queue
         }
 
         $msg = [
-            "队列执行结束:[{$this->getName()}]，历时:" . $this->timer->totalTime(),
+            '[-]----队列执行结束----:' . $this->getName(),
+            ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
+            ', 历时:' . $this->timer->totalTime(),
         ];
         $this->getManager()->logInfo(implode('', $msg));
     }
