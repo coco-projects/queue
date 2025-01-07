@@ -20,6 +20,20 @@ class GuzzleMission extends MissionAbstract
     {
     }
 
+    public function addClientOptions($key, $clientOption): static
+    {
+        $this->clientOptions[$key] = $clientOption;
+
+        return $this;
+    }
+
+    public function addRequestOptions($key, $clientOption): static
+    {
+        $this->requestOptions[$key] = $clientOption;
+
+        return $this;
+    }
+
     public function setClientOptions(array $clientOptions): static
     {
         $this->clientOptions = $clientOptions;
