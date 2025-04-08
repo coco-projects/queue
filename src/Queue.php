@@ -21,8 +21,8 @@ class Queue
     protected array              $resultProcessor        = [];
     protected ?ProcessorAbstract $missionProcessor       = null;
     protected ?Timer             $timer                  = null;
-    protected                    $onFinish               = null;
-    protected                    $onEachMissionStartExec = null;
+    protected $onFinish               = null;
+    protected $onEachMissionStartExec = null;
 
     public function __construct(string $name, MissionManager $manager)
     {
@@ -531,7 +531,8 @@ class Queue
 
     public function listen(): void
     {
-        $queueName = $this->queueRunningName();
+        $queueName       = $this->queueRunningName();
+        $lastMissionTime = $this->timer->getTime();
 
         while (true) {
             //手动关闭队列
@@ -550,24 +551,23 @@ class Queue
                 }
 
                 $mission = $this->popMissionFormRunning();
-
                 if (!$mission) {
                     usleep(1000 * 2);
                     break 1;
                 }
 
+                $this->execMissionWithQueue($mission);
+                $this->pushNode();
+
                 $msg = [
                     '[O]队列:' . $this->getName(),
-                    ', 当前历时:' . $this->timer->lastMarkToNowTime() . ' S',
+                    ', 当前历时:' . $this->timer->formatTime($this->timer->getTime() - $lastMissionTime) . ' S',
                     ', 总历时:' . $this->timer->totalTime() . ' S',
                     ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
                 ];
                 $this->getManager()->logInfo(implode('', $msg));
 
-                $this->execMissionWithQueue($mission);
-
-                $this->pushNode();
-
+                $lastMissionTime = $this->timer->getTime();
                 usleep(1000 * 2);
             }
 
@@ -581,16 +581,17 @@ class Queue
 
             $msg = [
                 '[-]队列:' . $this->getName(),
-                ', 当前历时:' . $this->timer->lastMarkToNowTime() . ' S',
+                ', 当前历时:' . $this->timer->formatTime($this->timer->getTime() - $lastMissionTime) . ' S',
                 ', 总历时:' . $this->timer->totalTime() . ' S',
                 ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
             ];
             $this->getManager()->logInfo(implode('', $msg));
+
+            $lastMissionTime = $this->timer->getTime();
         }
 
         $msg = [
             '【--队列执行结束--】' . $this->getName(),
-            ', 当前历时:' . $this->timer->lastMarkToNowTime() . ' S',
             ', 总历时:' . $this->timer->totalTime() . ' S',
             ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
         ];
