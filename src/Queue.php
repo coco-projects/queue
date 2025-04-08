@@ -16,12 +16,13 @@ class Queue
     use MissionManagerTrait;
 
     protected string             $name;
-    protected bool               $exitOnfinish      = true;
-    protected int                $statisticsListNum = 20;
-    protected array              $resultProcessor   = [];
-    protected ?ProcessorAbstract $missionProcessor  = null;
-    protected ?Timer             $timer             = null;
-    protected $onFinish          = null;
+    protected bool               $exitOnfinish           = true;
+    protected int                $statisticsListNum      = 20;
+    protected array              $resultProcessor        = [];
+    protected ?ProcessorAbstract $missionProcessor       = null;
+    protected ?Timer             $timer                  = null;
+    protected                    $onFinish               = null;
+    protected                    $onEachMissionStartExec = null;
 
     public function __construct(string $name, MissionManager $manager)
     {
@@ -75,7 +76,6 @@ class Queue
         }
     }
 
-
     public function reset(): void
     {
         $this->getManager()->getRedisClient()->set($this->queueSuccessTimesName(), 0);
@@ -96,7 +96,6 @@ class Queue
         }
     }
 
-
     public function getName(): string
     {
         return $this->name;
@@ -105,6 +104,13 @@ class Queue
     public function setOnFinish(callable $onFinish): static
     {
         $this->onFinish = $onFinish;
+
+        return $this;
+    }
+
+    public function setOnEachMissionStartExec(callable $onEachMissionStartExec): static
+    {
+        $this->onEachMissionStartExec = $onEachMissionStartExec;
 
         return $this;
     }
@@ -550,13 +556,11 @@ class Queue
                     break 1;
                 }
 
-                $totalTime = $this->timer->totalTime();
-
                 $msg = [
-                    '[O]队列名称:' . $this->getName(),
+                    '[O]队列:' . $this->getName(),
+                    ', 当前历时:' . $this->timer->lastMarkToNowTime() . ' S',
+                    ', 总历时:' . $this->timer->totalTime() . ' S',
                     ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
-                    ', 历时:' . $totalTime,
-                    ' S',
                 ];
                 $this->getManager()->logInfo(implode('', $msg));
 
@@ -576,17 +580,19 @@ class Queue
             }
 
             $msg = [
-                '[-]队列名称:' . $this->getName(),
+                '[-]队列:' . $this->getName(),
+                ', 当前历时:' . $this->timer->lastMarkToNowTime() . ' S',
+                ', 总历时:' . $this->timer->totalTime() . ' S',
                 ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
-                ', 历时:' . $this->timer->totalTime(),
             ];
             $this->getManager()->logInfo(implode('', $msg));
         }
 
         $msg = [
-            '[-]----队列执行结束----:' . $this->getName(),
+            '【--队列执行结束--】' . $this->getName(),
+            ', 当前历时:' . $this->timer->lastMarkToNowTime() . ' S',
+            ', 总历时:' . $this->timer->totalTime() . ' S',
             ', 内存:' . $this->timer->getTotalMemory() . ' / ' . $this->timer->getTotalMemoryPeak(),
-            ', 历时:' . $this->timer->totalTime(),
         ];
         $this->getManager()->logInfo(implode('', $msg));
     }
@@ -657,15 +663,22 @@ class Queue
     {
         $mission->setQueue($this);
 
+        if (is_callable($this->onEachMissionStartExec)) {
+            call_user_func_array($this->onEachMissionStartExec, [$mission]);
+        }
+
         if (!$this->missionProcessor instanceof ProcessorAbstract) {
             $mission->setError('队列未指定 missionProcessor...');
             throw new MissionExecErrorException($mission);
         }
 
+        //不指定也可以
+        /*
         if (!count($this->resultProcessor)) {
             $mission->setError('至少指定一个 ResultProcessor...');
             throw new MissionExecErrorException($mission);
         }
+        */
 
         if ($mission->isTerminated()) {
             $msg = "任务已被终止:[{$mission->getId()}]" ;
