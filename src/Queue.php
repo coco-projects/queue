@@ -423,9 +423,11 @@ class Queue
         $rate           = $this->execMissionPerSec();
         $remainMissions = $this->countRunning();
 
+        $remain = $rate > 0 ? bcdiv($remainMissions, $rate, 3) : -1;
+
         return [
             "rate"   => $rate,
-            "remain" => max(bcdiv($remainMissions, $rate, 3), -1),
+            "remain" => $remain,
 
             "successTimes" => $this->getSuccessTimes(),
             "errorTimes"   => $this->getErrorTimes(),
