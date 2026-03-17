@@ -486,7 +486,7 @@ class Queue
         $toCurrentTime = microtime(true) - $lastTime;
 
         //如果超过多少秒，就清空队列，相当于任务已经停下了
-        if ($toCurrentTime > 5) {
+        if ($toCurrentTime > 10) {
             $this->getManager()->getRedisClient()->del($queueName);
         }
 
